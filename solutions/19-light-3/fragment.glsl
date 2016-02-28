@@ -5,15 +5,14 @@ uniform mat4 inverseModel, inverseView, inverseProjection;
 uniform vec3 ambient, diffuse, specular, lightDirection;
 uniform float shininess;
 
-varying vec3 v_color;
-varying vec3 light;
-
 varying vec3 vEyeDirection;
 varying vec3 vNormal;
 
 
 float lambertWeight(vec3 n, vec3 d) {
-  return max(dot(n, d), 0.0);
+  return dot(n, d);
+  // correct version but should be an issue with shader school
+  // return max(dot(n, d), 0.0);
 }
 
 float phongWeight(
