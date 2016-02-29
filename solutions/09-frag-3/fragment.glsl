@@ -9,4 +9,7 @@ void main() {
   //TODO: Swap red and blue color channels of image
 
   gl_FragColor = texture2D(texture, coord);
+  float temp = gl_FragColor.r;
+  gl_FragColor.r = gl_FragColor.b;
+  gl_FragColor.b = temp;
 }
