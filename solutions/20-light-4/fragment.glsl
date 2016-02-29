@@ -18,7 +18,7 @@ uniform float shininess;
 
 varying vec3 vEyeDirection;
 varying vec3 vNormal;
-varying vec3 vPosition;
+varying vec3 vLightDirection;
 
 
 float lambertWeight(vec3 n, vec3 d) {
@@ -45,12 +45,11 @@ float phongWeight(
 }
 
 void main() {
-  // vPosition = (project * view * model * v4(vPosition,0)).xyz;
-  vec3 lightDirection = vPosition;
+  float phong = phongWeight(vLightDirection,vNormal,vEyeDirection,shininess);
 
-  float phong = phongWeight(lightDirection,vNormal,vEyeDirection,shininess);
-  float lambert = lambertWeight(vNormal, lightDirection);
+  float lambert = lambertWeight(vNormal, vLightDirection);
+  
   vec3 res = ambient + diffuse*lambert + specular*phong;
+
   gl_FragColor = vec4(res,1);
-  // gl_FragColor = vec4(1,0,0,1);
 }
